@@ -1,0 +1,59 @@
+{% extends 'scraper/base.html' %}
+{% block content %}
+    <h1>Product Comparison</h1>
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search products..." value="{{ query }}">
+            <input type="text" name="category" class="form-control" placeholder="Category (e.g., Milk, Bread)" value="{{ category }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <h2>Products</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Price (€)</th>
+                <th>Store</th>
+                <th>Category</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.weight }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.store.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.scraped_date|date:"Y-m-d" }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6">No products found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Cheapest Products</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Cheapest Price (€)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cheapest %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.weight }}</td>
+                    <td>{{ item.min_price }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3">No data available.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

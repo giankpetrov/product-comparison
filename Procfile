@@ -1,0 +1,1 @@
+web: gunicorn product_comparison.wsgi --log-file -

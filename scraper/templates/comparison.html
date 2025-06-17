@@ -1,0 +1,24 @@
+{% extends 'scraper/base.html' %}
+{% block content %}
+    <h1>Cheapest Products</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Cheapest Price (€)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cheapest %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.weight }}</td>
+                    <td>{{ item.min_price }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3">No data available.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
